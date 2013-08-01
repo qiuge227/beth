@@ -26,7 +26,7 @@ iOS7已经发布有一段时间，扁平化设计风格有很多值得称赞的�
 
 ![border对比效果]()
 
-很显然，在移动设备上，`border`无法达到我们想要的效果。这是因为devicePixelRatio特性导致，iPhone的devicePixelRatio=2，`border: 1px solid`描述的是设备独立像素，被放大到物理像素2px显示，所以border在iPhone上就显得较粗。
+很显然，在移动设备上，`border`无法达到我们想要的效果。这是因为devicePixelRatio特性导致，iPhone的devicePixelRatio==2，`border: 1px solid`描述的是设备独立像素，被放大到物理像素2px显示，所以border在iPhone上就显得较粗。
 
 ### 使用`border-image`属性实现
 
