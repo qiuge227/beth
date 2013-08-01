@@ -5,7 +5,8 @@ iOS7已经发布有一段时间，扁平化设计风格有很多值得称赞的�
 
 首先，来看下面iOS设置的截图：
 
-!['iOS7 Settings'](images/ios7_settings.png)
+<img width="320" src="images/ios7_settings.png" />
+
 
 
 
