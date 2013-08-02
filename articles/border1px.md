@@ -38,7 +38,6 @@ iOS7已经发布有一段时间，扁平化设计风格有很多值得称赞的�
 
 同样，在使用`border-image`时，将border设计为物理1px，如下：
 
-![border image 放大](http://maxzhang.github.com/articles/images/border_zoom.png)
 
 样式设置：
 
