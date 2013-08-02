@@ -1,4 +1,4 @@
-使用border-image实现类iOS7的1px底边
+使用border-image实现类似iOS7的1px底边
 ===================
 
 iOS7已经发布有一段时间，扁平化设计风格有很多值得称赞的地方，其中有很多设计细节都是值得研究的。
@@ -7,7 +7,7 @@ iOS7已经发布有一段时间，扁平化设计风格有很多值得称赞的�
 
 <img width="320" src="http://maxzhang.github.com/articles/images/ios7_settings.png" />
 
-从上面的截图可以看到iOS7的设计是非常精细的，border是一根非常细的线。这篇文章介绍如何实现iOS7的border效果。
+从上面的截图可以看到iOS7的设计是非常精细的，border是一根非常细的线。这篇文章将说明如何使用border-image实现iOS7的border效果。
 
 在看下面的内容之前，需要先了解devicePixelRatio和border-image，不熟悉的同学请自行脑补：
 
@@ -19,23 +19,31 @@ iOS7已经发布有一段时间，扁平化设计风格有很多值得称赞的�
 
 我们在实现border时通常都是使用`border`属性，如下：
 ```
-
+.border-1px {
+    border-width: 1px 0;
+    border-style: solid;
+    border-color: #333;
+}
 ```
 
 显示效果对比：
 
 ![border对比效果](http://maxzhang.github.com/articles/images/border_compare.png)
 
-很显然，在移动设备上，`border`无法达到我们想要的效果。这是因为devicePixelRatio特性导致，iPhone的devicePixelRatio==2，`border: 1px solid`描述的是设备独立像素，被放大到物理像素2px显示，所以border在iPhone上就显得较粗。
+上面这张图片可以看到，在手机上`border`无法达到我们想要的效果。这是因为devicePixelRatio特性导致，iPhone的devicePixelRatio==2，而`border-width: 1px`描述的是设备独立像素，所以，border被放大到物理像素2px显示，在iPhone上就显得较粗。
 
 ### 使用`border-image`属性实现物理1px
 
-通常，手机端的页面设计稿都是放大一倍的，这是为了适应devicePixelRatio==2的特性，图片按照2倍大小切出来，在手机端看着就不会虚化，非常清晰。
+通常手机端的页面设计稿都是放大一倍的，这是为了适应devicePixelRatio==2的特性，图片按照2倍大小切出来，在手机端看着就不会虚化，非常清晰。
 
 同样，将图片的这个特性使用在`border-image`上，代码如下：
 
 ```
-
+.border-image-1px {
+    border-width: 1px 0px;
+    -webkit-border-image: url("border.png") 2 0 stretch;
+    border-image: url("border.png") 2 0 stretch;
+}
 ```
 
 显示效果对比：

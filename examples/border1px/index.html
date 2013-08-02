@@ -16,6 +16,10 @@
         padding: 10px;
     }
 
+    h1 {
+        font-size: 24px;
+    }
+
     div {
         margin: 20px 0;
         background-color: #eee;
@@ -23,13 +27,13 @@
         height: 100px;
     }
 
-    .border1px {
+    .border-1px {
         border-width: 1px 0;
         border-style: solid;
         border-color: #333;
     }
 
-    .borderbg {
+    .border-image-1px {
         border-width: 1px 0px;
         -webkit-border-image: url("border.png") 2 0 stretch;
         border-image: url("border.png") 2 0 stretch;
@@ -40,9 +44,9 @@
 
 <h1>devicePixelRatio: <script>document.write(window.devicePixelRatio)</script></h1>
 
-<div class="border1px"></div>
+<div class="border-1px"></div>
 
-<div class="borderbg"></div>
+<div class="border-image-1px"></div>
 
 </body>
 </html>
