@@ -19,7 +19,7 @@
 
 同时，每个原型（prototype）对象又都包含一个名为“constructor”的不可枚举的属性，它应该始终指向到构造函数（constructor）。不论是构造函数（constructor）还是原型（prototype），都是对象。
 
-**Note：JavaScript的数据类型包括两类：5种原始类型和对象类型，函数（function）是一种特殊的对象。**
+**Note：**JavaScript的数据类型包括两类：5种原始类型和对象类型，函数（function）是一种特殊的对象。
 
 ```
 function F() {}
@@ -84,7 +84,7 @@ alert(Foo.prototype.__proto__ === Object.prototype); // true
 到这里原型链的脉络就比较清晰了，由于Object.prototype的__proto__属性指向到null，所以，foo正确的原型链如下图：
 ![oop-2](https://raw.github.com/maxzhang/maxzhang.github.com/master/articles/images/oop-2.png)
 
-**Note：__proto__属性只有在chrome或firefox浏览器中才是公开允许访问。**
+**Note：**__proto__属性只有在chrome或firefox浏览器中才是公开允许访问。
 
 #### 2.2.2 函数（function）对象的原型链
 在JavaScript中，函数（function）是一个特殊的对象，所有函数都是构造函数Function的实例，所以，函数的原型链与new操作符实例化对象的原型链会不同，先看下面代码：
@@ -125,7 +125,7 @@ alert(Object instanceof Function); // true
 alert(Function instanceof Object); // true
 ```
 
-**Note：instanceof内部是通过[[HasInstance]]方法运算得到结果（[参考资料](http://www.ecma-international.org/ecma-262/5.1/index.html#sec-15.3.5.3)）。**
+**Note：**instanceof内部是通过[[HasInstance]]方法运算得到结果（[参考资料](http://www.ecma-international.org/ecma-262/5.1/index.html#sec-15.3.5.3)）。
 
 这节最后，引用一张来自mollypages.org的[JavaScript对象结构图](http://www.mollypages.org/misc/js.mp)：
 ![oop-4](https://raw.github.com/maxzhang/maxzhang.github.com/master/articles/images/oop-4.jpg)
@@ -147,7 +147,7 @@ var a1 = new Animal('不高兴');
 a1.sleep();
 ```
 
-**Note：类名为Animal，使用大写字母开头，是编程的一种命名约定。**
+**Note：**类名为Animal，使用大写字母开头，是编程的一种命名约定。
 
 使用prototype也可以实现：
 
@@ -165,7 +165,7 @@ a1.sleep();
 但是，两种声明公共属性/方法的方式是有区别的，使用[hasOwnProperty()](http://msdn.microsoft.com/zh-cn/library/328kyd6z(v=vs.94).aspx)方法可以用来判断某一个属性到底是本地属性，还是继承自prototype对象的属性，在后面继承章节中将详细说明本地属性与prototype属性的关系。
 
 在执行构造函数和a1对象方法调用时，this变量会绑定到a1对象，在这里就不具体说明this了。
-Note：更多关于this的知识，[ECMA-262-3 in detail. Chapter 3. This.](http://dmitrysoshnikov.com/ecmascript/chapter-3-this/) / [中文版](http://blog.goddyzhao.me/post/11218727474/this)
+**Note：**更多关于this的知识，[ECMA-262-3 in detail. Chapter 3. This.](http://dmitrysoshnikov.com/ecmascript/chapter-3-this/) / [中文版](http://blog.goddyzhao.me/post/11218727474/this)
 
 关于私有属性我不想花过多的语言去描述，这个并不是JavaScript所擅长的。私有属性有一种命名约定以下划线（_）作为开头，一般在看到这种命名约定时，就应当想到，这是对象的一个私有属性，不应该随意修改，如：
 
@@ -305,7 +305,7 @@ alert(p3.__proto__.name); // 输出persian cat，本地name属性赋值之后，
 下面通过一个更详细的原型链图，来描述这个例子中本地属性与prototype属性之间的关系：
 ![oop-6](https://raw.github.com/maxzhang/maxzhang.github.com/master/articles/images/oop-6.png)
 
-通过这个图，大家应该也看明白了，a1、c2、p3中的都是本地属性，其他的都是prototype属性，从例子的结果可以知道，对本地属性赋值，并不会覆盖prototype属性。在使用this访问对象的属性或方法时，是先从本地属性中查找，如果未到，那么它会向上遍历原型链，直到找到给定名称的属性为止，当到达原型链的顶部（也就是Object.prototype）仍然没有找到指定的属性，就会返回undefined。
+通过这个图，大家应该也看明白了，a1、c2、p3中的是本地属性，其他的都是prototype属性，从例子的运行结果可以知道，对本地属性赋值，并不会覆盖prototype属性。在使用this访问对象的属性或方法时，是先从本地属性中查找，如果未到，那么它会向上遍历原型链，直到找到给定名称的属性为止，当到达原型链的顶部（也就是Object.prototype）仍然没有找到指定的属性，就会返回undefined。
 
 ## 4 结束语
 以上是我的关于JavaScript基于原型的面向对象编程的全部。（完）
