@@ -249,7 +249,7 @@ a1.sleep(); // alert Animal sleep
 
 ```
 var TemplateClass = function() {}; 
-function inherit(object) {
+function chain(object) {
     TemplateClass.prototype = object;
     var result = new TemplateClass();
     TemplateClass.prototype = null;
@@ -275,7 +275,7 @@ function Cat() {
     // 通过调用父类的构造函数实现初始化
     Animal.apply(this, arguments);
 }
-Cat.prototype = inherit(Animal.prototype);
+Cat.prototype = chain(Animal.prototype);
 Cat.prototype.constructor = Cat;
 Cat.prototype.greenEye = true;
 Cat.prototype.mew = function() {
@@ -290,7 +290,7 @@ alert(c2.greenEye); // true
 function PersianCat() {
     Cat.apply(this, arguments);
 }
-PersianCat.prototype = inherit(Cat.prototype);
+PersianCat.prototype = chain(Cat.prototype);
 PersianCat.prototype.constructor = PersianCat;
 PersianCat.prototype.name = 'persian cat'; // 在原型中声明name属性
 PersianCat.prototype.blueEye = true;
