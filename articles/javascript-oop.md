@@ -301,7 +301,7 @@ PersianCat.prototype.mew = function() {
 };
 
 var p3 = new PersianCat('不高兴', 'yellow');
-p3.mew(); // 不高兴 mew，不高兴 miaow，这里并没有输出
+p3.mew(); // 不高兴 mew，不高兴 miaow
 p3.sleep(); // 不高兴 sleep
 alert(p3.greenEye); // true
 alert(p3.blueEye); // true
@@ -385,7 +385,7 @@ extend(PersianCat, Cat, {
 });
 
 var p3 = new PersianCat('不高兴', 'yellow');
-p3.mew(); // 不高兴 mew，不高兴 miaow，这里并没有输出
+p3.mew(); // 不高兴 mew，不高兴 miaow
 p3.sleep(); // 不高兴 sleep
 alert(p3.greenEye); // true
 alert(p3.blueEye); // true
