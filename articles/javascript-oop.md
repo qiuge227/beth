@@ -62,7 +62,7 @@ alert(F.prototype.constructor === F); // true
 理解原型链是基于原型面向对象编程中最重要的一个环节，我需要将原型链分成两部分说明。
 
 #### 2.2.1 使用new操作符实例化对象的原型链
-__proto__是理解原型链的关键对象，每一个使用new操作符实例化的对象和函数对象都包含一个__proto__属性，它是构造函数“prototype”属性的引用，先看一段代码：
+\__proto__是理解原型链的关键对象，每一个使用new操作符实例化的对象和函数对象都包含一个__proto__属性，它是构造函数“prototype”属性的引用，先看一段代码：
 
 ```
 function Foo() {}
@@ -249,7 +249,7 @@ a1.sleep(); // alert Animal sleep
 
 ```
 var TemplateClass = function() {}; 
-function inherit(object) {
+function chain(object) {
     TemplateClass.prototype = object;
     var result = new TemplateClass();
     TemplateClass.prototype = null;
@@ -275,7 +275,7 @@ function Cat() {
     // 通过调用父类的构造函数实现初始化
     Animal.apply(this, arguments);
 }
-Cat.prototype = inherit(Animal.prototype);
+Cat.prototype = chain(Animal.prototype);
 Cat.prototype.constructor = Cat;
 Cat.prototype.greenEye = true;
 Cat.prototype.mew = function() {
@@ -290,7 +290,7 @@ alert(c2.greenEye); // true
 function PersianCat() {
     Cat.apply(this, arguments);
 }
-PersianCat.prototype = inherit(Cat.prototype);
+PersianCat.prototype = chain(Cat.prototype);
 PersianCat.prototype.constructor = PersianCat;
 PersianCat.prototype.name = 'persian cat'; // 在原型中声明name属性
 PersianCat.prototype.blueEye = true;
@@ -301,7 +301,7 @@ PersianCat.prototype.mew = function() {
 };
 
 var p3 = new PersianCat('不高兴', 'yellow');
-p3.mew(); // 不高兴 mew，不高兴 miaow，这里并没有输出
+p3.mew(); // 不高兴 mew，不高兴 miaow
 p3.sleep(); // 不高兴 sleep
 alert(p3.greenEye); // true
 alert(p3.blueEye); // true
@@ -314,6 +314,82 @@ alert(p3.__proto__.name); // 输出persian cat，本地name属性赋值之后，
 
 通过这个图，大家应该也看明白了，a1、c2、p3中的是本地属性，其他的都是prototype属性，从例子的运行结果可以知道，对本地属性赋值，并不会覆盖prototype属性。在使用this访问对象的属性或方法时，是先从本地属性中查找，如果未到，那么它会向上遍历原型链，直到找到给定名称的属性为止，当到达原型链的顶部（也就是Object.prototype）仍然没有找到指定的属性，就会返回undefined。
 
+chain()函数也可以使用Object.create()函数替代，可以简单的理解成[Object.create()](http://msdn.microsoft.com/zh-cn/library/ff925952\(v=vs.94\).aspx)完成的工作与chain()一样。这样可以对上面例子的代码再优化，将类继承封装成一个独立函数：
+
+```
+var TemplateClass = function() {},
+    chain = Object.create || function(object) {
+        TemplateClass.prototype = object;
+        var result = new TemplateClass();
+        TemplateClass.prototype = null;
+        return result;
+    };
+
+function extend(SubClass, SuperClass, overrides) {
+    var subProto, name;
+    SuperClass = SuperClass || Object;
+    SubClass.prototype = chain(SuperClass.prototype);
+    subProto = SubClass.prototype;
+    subProto.constructor = SubClass;
+    if (overrides) {
+        for (name in overrides) {
+            if (overrides.hasOwnProperty(name)) {
+                subProto[name] = overrides[name];
+            }
+        }
+    }
+}
+```
+
+例子代码重构：
+
+```
+function Animal(name, color) {
+    this.name = name;
+    this.color = color;
+}
+extend(Animal, Object, {
+    sleep: function() {
+        alert(this.name + ' sleep');
+    }
+});
+
+var a1 = new Animal('倒霉熊', 'white');
+a1.sleep(); // 倒霉熊 sleep
+
+function Cat() {
+    Animal.apply(this, arguments);
+}
+extend(Cat, Animal, {
+    greenEye: true,
+    mew: function() {
+        alert(this.name + ' mew');
+    }
+});
+
+var c2 = new Cat('没头脑', 'red');
+c2.mew(); // 没头脑 mew
+c2.sleep(); // 没头脑 sleep
+alert(c2.greenEye); // true
+
+function PersianCat() {
+    Cat.apply(this, arguments);
+}
+extend(PersianCat, Cat, {
+    name: 'persian cat',
+    blueEye: true,
+    mew: function() {
+        Cat.prototype.mew.call(this);
+        alert(this.name + ' miaow');
+    }
+});
+
+var p3 = new PersianCat('不高兴', 'yellow');
+p3.mew(); // 不高兴 mew，不高兴 miaow
+p3.sleep(); // 不高兴 sleep
+alert(p3.greenEye); // true
+alert(p3.blueEye); // true
+```
+
 ## 4 结束语
 以上是我的关于JavaScript基于原型的面向对象编程的全部。（完）
-
