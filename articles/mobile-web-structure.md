@@ -61,7 +61,7 @@
 
 此时，我们需要思考另一个问题：如何实现当前视图的Content区域内容滚动？视图的样式高度设置为```height:100%```，将视图高度设定为一屏高的目的是为了方便实现视图动画切换的效果（视图动画切换会在后面详细的讲）。但这样做会导致另一个问题，高度为一屏高意味着浏览器滚动条失效，无法使用浏览器滚动条滚动页面。
 
-### 3.1 使用iScroll实现多视图布局
+### 3.1 基于iScroll的多视图布局
 现在比较流行的一种解决方案是使用[iScroll](http://cubiq.org/iscroll-4)组件实现固定区域滚动，这样就能解决Content区域的滚动问题，在手机搜狐的早期项目也是这么做的。此外，使用iScroll还额外带来了一些好处，如：
 
 * Header区域能固定在页面顶部，不会因为Content区域滚动导致Header被顶上去；
@@ -103,7 +103,7 @@
 
 ![structure-7](https://raw.github.com/maxzhang/maxzhang.github.com/master/articles/images/structure-7.gif)
 
-### 3.2 iScroll实现页面侧边栏
+### 3.2 iScroll页面结构下的侧边栏
 使用iScroll的页面结构，无论是侧边栏还是封面图都非常好实现，看伪代码：
 
 侧边栏，默认状态
@@ -142,7 +142,7 @@
 <div class="view current"></div>
 ```
 
-### 3.3 iScroll实现页面封面图
+### 3.3 iScroll页面结构下的封面图
 封面图的实现与侧边栏差不多。
 
 封面图，默认状态
@@ -236,7 +236,7 @@ Fixed在一些移动设备浏览器上有兼容问题，我找到了一种能检
 
 ![structure-13](https://raw.github.com/maxzhang/maxzhang.github.com/master/articles/images/structure-13.gif)
 
-### 4.3 侧边栏的实现
+### 4.3 原生Scroll页面结构下的侧边栏
 侧边栏的结构也变得复杂了一些，使用原生Scroll之后，body的高度会被内容区域撑到很高，但侧边栏还是必须保证一屏高。所以我在侧边栏显示时，将html与body的高度控制为一屏高，这样可以防止页面被滚动。使用伪代码表示：
 
 侧边栏，默认状态
@@ -303,7 +303,7 @@ Fixed在一些移动设备浏览器上有兼容问题，我找到了一种能检
 
 另外，将侧边栏设置为```position:fixed```定位会是另一种实现思路。
 
-### 4.4 封面图的实现
+### 4.4 原生Scroll页面结构下的封面图
 封面图的实现与侧边栏差不多，使用伪代码表示：
 
 封面图，默认为显示状态
@@ -358,7 +358,7 @@ Fixed在一些移动设备浏览器上有兼容问题，我找到了一种能检
 
 ![structure-15](https://raw.github.com/maxzhang/maxzhang.github.com/master/articles/images/structure-15.gif)
 
-### 4.5 原生Scroll下，内容刷新的实现
+### 4.5 原生Scroll页面结构下，内容刷新的实现
 一般情况下，我们会页面底部放一个加载更多的按钮，让用户点击按钮加载下一页内容，如下图：
 
 ![structure-16](https://raw.github.com/maxzhang/maxzhang.github.com/master/articles/images/structure-16.png)
