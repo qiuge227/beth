@@ -237,7 +237,7 @@ Fixed在一些移动设备浏览器上有兼容问题，我找到了一种能检
 ![structure-13](https://raw.github.com/maxzhang/maxzhang.github.com/master/articles/images/structure-13.gif)
 
 ### 4.3 侧边栏的实现
-使用原生Scroll之后，侧边栏的结构也变得复杂了一些。使用伪代码表示：
+侧边栏的结构也变得复杂了一些，使用原生Scroll之后，body的高度会被内容区域撑到很高，但侧边栏还是必须保证一屏高。所以我在侧边栏显示时，将html与body的高度控制为一屏高，这样可以防止页面被滚动。使用伪代码表示：
 
 侧边栏，默认状态
 
@@ -245,7 +245,7 @@ Fixed在一些移动设备浏览器上有兼容问题，我找到了一种能检
 <html class="frame">
 <head>
 <style type="text/css">
-    .frame, .frame body {
+    .frame {
         height: 100%;
     }
     .sidebar {
@@ -260,6 +260,9 @@ Fixed在一些移动设备浏览器上有兼容问题，我找到了一种能检
         position: relative;
         z-index: 100;
         height: 2000px;
+    }
+    .sidebar-show body, .sidebar-hide body {
+        height: 100%;
     }
     .sidebar-show .scroller {
         overflow: hidden;
@@ -324,6 +327,9 @@ Fixed在一些移动设备浏览器上有兼容问题，我找到了一种能检
         position: relative;
         z-index: 100;
         height: 2000px;
+    }
+    .cover-show body, .cover-hide body {
+        height: 100%;
     }
     .cover-show .scroller {
         overflow: hidden;
