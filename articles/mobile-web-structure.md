@@ -189,7 +189,7 @@
 ![structure-8](https://raw.github.com/maxzhang/maxzhang.github.com/master/articles/images/structure-8.gif)
 
 ### 3.4 iScroll对内容刷新的支持
-对于Content区域的内容属性iScroll也有很好的支持，可以直接参见iScroll提供的例子：[http://lab.cubiq.org/iscroll/examples/pull-to-refresh/](http://lab.cubiq.org/iscroll/examples/pull-to-refresh/)
+对于Content区域的内容刷新iScroll也有很好的支持，可以直接参见iScroll提供的例子：[http://lab.cubiq.org/iscroll/examples/pull-to-refresh/](http://lab.cubiq.org/iscroll/examples/pull-to-refresh/)
 
 ![structure-9](https://raw.github.com/maxzhang/maxzhang.github.com/master/articles/images/structure-9.png)
 
@@ -205,7 +205,7 @@
 
 ![structure-10](https://raw.github.com/maxzhang/maxzhang.github.com/master/articles/images/structure-10.gif)
 
-Fixed在一些移动设备浏览器上有兼容问题，我找到了一种能检测浏览器是否支持position:fixed的方法，这个也发一篇博文《移动Web开发，4行代码检测浏览器是否支持position:fixed》，在检测到浏览器不支持fixed时，可以使用absolute作为替代方案，监听window的scroll事件，每次scroll动作结束时，重新计算一次Header的top值，将其定位到页面顶部。
+Fixed在一些移动设备浏览器上有兼容问题，我找到了一种能检测浏览器是否支持position:fixed的方法，这个也发一篇博文《[移动Web开发，4行代码检测浏览器是否支持position:fixed](https://github.com/maxzhang/maxzhang.github.com/issues/7)》，在检测到浏览器不支持fixed时，可以使用absolute作为替代方案，监听window的scroll事件，每次scroll动作结束时，重新计算一次Header的top值，将其定位到页面顶部。
 
 有关```position:fixed```的bug在另一篇博文中《[移动端web页面使用position:fixed问题总结](https://github.com/maxzhang/maxzhang.github.com/issues/2)》也有总结。
 
