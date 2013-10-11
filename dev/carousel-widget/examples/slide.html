@@ -1,0 +1,324 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+<title>Slide Example</title>
+<style type="text/css">
+    body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #333333;
+        margin: 0 0;
+        padding: 10px 0 30px;
+    }
+
+    h1 {
+        padding: 20px 5px 0;
+        font-size: 24px;
+    }
+
+    h4 {
+        font-size: 17.5px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    p {
+        padding: 0 5px;
+    }
+
+    .carousel {
+        position: relative;
+        width: 100%;
+        margin-bottom: 20px;
+        overflow: hidden;
+        line-height: 1;
+    }
+
+    .carousel-indicators {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        z-index: 5;
+        margin: 0;
+        list-style: none;
+    }
+
+    .carousel-indicators li {
+        display: block;
+        float: left;
+        width: 10px;
+        height: 10px;
+        margin-left: 5px;
+        text-indent: -999px;
+        background-color: rgba(255, 255, 255, 0.25);
+        border-radius: 5px;
+    }
+
+    .carousel-indicators .active {
+        background-color: #fff;
+    }
+
+    .carousel-inner {
+        width: 100%;
+        height: 184px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+    }
+
+    .carousel-inner > div {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        -webkit-box-pack:center;
+        -ms-flex-pack: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+    }
+
+
+    .carousel-inner > div i {
+        width: 100%;
+        height: 100%;
+        display: block;
+        background: no-repeat center;
+        -webkit-background-size: contain;
+        background-size: contain;
+    }
+
+    .carousel-caption {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.75);
+    }
+
+    .carousel-caption h4 {
+        margin: 0 0 5px;
+        line-height: 20px;
+        color: #ffffff;
+    }
+
+    .carousel-control {
+        position: absolute;
+        top: 50%;
+        left: 15px;
+        width: 30px;
+        height: 30px;
+        margin-top: -20px;
+        font-size: 40px;
+        font-weight: 100;
+        line-height: 22px;
+        color: #ffffff;
+        text-align: center;
+        background: #222222;
+        border: 3px solid #ffffff;
+        -webkit-border-radius: 23px;
+        border-radius: 23px;
+        opacity: 0.5;
+    }
+
+    .carousel-control:hover, .carousel-control:focus {
+        color: #ffffff;
+        text-decoration: none;
+        opacity: 0.9;
+    }
+
+    .carousel-control.right {
+        right: 15px;
+        left: auto;
+    }
+
+    #myCarousel4 {
+        position: relative;
+        width: 100%;
+        margin-bottom: 20px;
+        overflow: hidden;
+        line-height: 1;
+    }
+
+    #myCarousel4 > ul {
+        width: 100%;
+        height: 184px;
+        list-style: none;
+        padding: 0;
+        display: -webkit-box;
+        display: -ms-flexbox;
+    }
+
+    #myCarousel4 > ul > li{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        -webkit-box-pack:center;
+        -ms-flex-pack: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+    }
+
+    #myCarousel4 > ul > li i {
+        width: 100%;
+        height: 100%;
+        display: block;
+        background: no-repeat center;
+        -webkit-background-size: contain;
+        background-size: contain;
+    }
+</style>
+</head>
+<body>
+
+<p>在PC端使用 Chrome 浏览器调试时，需要打开控制台，选中“Emulate touch events”，才能模拟 touch 效果。</p>
+
+<h1>1. Simple Slide</h1>
+
+<div id="myCarousel1" class="carousel">
+    <div class="carousel-inner">
+        <div>
+            <i style="background-image: url('bootstrap-mdo-sfmoma-01.jpg');"></i>
+            <div class="carousel-caption">
+                <h4>First Thumbnail label</h4>
+            </div>
+        </div>
+        <div>
+            <i style="background-image: url('bootstrap-mdo-sfmoma-02.jpg');"></i>
+            <div class="carousel-caption">
+                <h4>Second Thumbnail label</h4>
+            </div>
+        </div>
+        <div>
+            <i style="background-image: url('bootstrap-mdo-sfmoma-03.jpg');"></i>
+            <div class="carousel-caption">
+                <h4>Third Thumbnail label</h4>
+            </div>
+        </div>
+    </div>
+    <ol class="carousel-indicators">
+        <li class="active"></li>
+        <li></li>
+        <li></li>
+    </ol>
+</div>
+
+<h1>2. Slide Control Button</h1>
+
+<div id="myCarousel2" class="carousel">
+    <div class="carousel-inner">
+        <div>
+            <i style="background-image: url('bootstrap-mdo-sfmoma-01.jpg');"></i>
+            <div class="carousel-caption">
+                <h4>First Thumbnail label</h4>
+            </div>
+        </div>
+        <div>
+            <i style="background-image: url('bootstrap-mdo-sfmoma-02.jpg');"></i>
+            <div class="carousel-caption">
+                <h4>Second Thumbnail label</h4>
+            </div>
+        </div>
+        <div>
+            <i style="background-image: url('bootstrap-mdo-sfmoma-03.jpg');"></i>
+            <div class="carousel-caption">
+                <h4>Third Thumbnail label</h4>
+            </div>
+        </div>
+    </div>
+    <ol class="carousel-indicators">
+        <li class="active"></li>
+        <li></li>
+        <li></li>
+    </ol>
+    <a class="left carousel-control" href="#0">‹</a>
+    <a class="right carousel-control" href="#0">›</a>
+</div>
+
+<h1>3. Custom wrapSelector</h1>
+
+<div id="myCarousel3" class="carousel">
+    <ol class="carousel-indicators">
+        <li class="active"></li>
+        <li></li>
+        <li></li>
+    </ol>
+    <div class="carousel-inner">
+        <div>
+            <i style="background-image: url('bootstrap-mdo-sfmoma-01.jpg');"></i>
+            <div class="carousel-caption">
+                <h4>First Thumbnail label</h4>
+            </div>
+        </div>
+        <div>
+            <i style="background-image: url('bootstrap-mdo-sfmoma-02.jpg');"></i>
+            <div class="carousel-caption">
+                <h4>Second Thumbnail label</h4>
+            </div>
+        </div>
+        <div>
+            <i style="background-image: url('bootstrap-mdo-sfmoma-03.jpg');"></i>
+            <div class="carousel-caption">
+                <h4>Third Thumbnail label</h4>
+            </div>
+        </div>
+    </div>
+    <a class="left carousel-control" href="#0">‹</a>
+    <a class="right carousel-control" href="#0">›</a>
+</div>
+
+<h1>4. Clear Slide</h1>
+
+<div id="myCarousel4">
+    <ul>
+        <li><i style="background-image: url('bootstrap-mdo-sfmoma-01.jpg');"></i></li>
+        <li><i style="background-image: url('bootstrap-mdo-sfmoma-02.jpg');"></i></li>
+        <li><i style="background-image: url('bootstrap-mdo-sfmoma-03.jpg');"></i></li>
+    </ul>
+</div>
+
+
+<script type="text/javascript" src="../slide.js"></script>
+<script type="text/javascript">
+    new Slide({
+        targetSelector: '#myCarousel1',
+        indicatorSelector: '#myCarousel1 .carousel-indicators > li',
+        indicatorCls: 'active'
+    });
+
+    new Slide({
+        targetSelector: '#myCarousel2',
+        prevSelector: '#myCarousel2 .left',
+        nextSelector: '#myCarousel2 .right',
+        indicatorSelector: '#myCarousel2 .carousel-indicators > li',
+        indicatorCls: 'active'
+    });
+
+    new Slide({
+        targetSelector: '#myCarousel3',
+        wrapSelector: '.carousel-inner',
+        prevSelector: '#myCarousel3 .left',
+        nextSelector: '#myCarousel3 .right',
+        indicatorSelector: '#myCarousel3 .carousel-indicators > li',
+        indicatorCls: 'active'
+    });
+
+    new Slide({
+        targetSelector: '#myCarousel4'
+    });
+</script>
+
+</body>
+</html>

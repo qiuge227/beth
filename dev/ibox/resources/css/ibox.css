@@ -1,0 +1,109 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.ibox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    overflow: hidden;
+}
+
+.ibox-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 44px;
+    overflow: hidden;
+    background-image: url("../images/header-background.png");
+}
+
+.ibox-header > div {
+    position: absolute;
+    top: 7px;
+    left: 0px;
+}
+
+.ibox-header .title {
+    z-index: 1;
+    height: 30px;
+    overflow: hidden;
+    font: bold 20px Helvetica;
+    color: #ffffff;
+    line-height: 29px;
+    text-align: center;
+    text-overflow: ellipsis;
+    text-shadow: rgba(0, 0, 0, 0.4) 0px -1px 0px;
+    white-space: nowrap;
+}
+
+.ibox-header .button {
+    z-index: 2;
+    padding: 0 4px;
+    -webkit-border-image: url("../images/button.png") 0 5 30 5;
+    border-width: 0 5px 0 5px;
+    max-width: 120px;
+    height: 30px;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    font: bold 12px Helvetica;
+    color: #ffffff;
+    line-height: 29px;
+    text-shadow: rgba(0,0,0,.6) 0 -1px 0;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ibox-header .button.highlighted {
+    -webkit-border-image: url("../images/button.png") 30 5 0 5;
+}
+
+.ibox-header .button.back {
+    border-width: 0 4px 0 12px;
+    -webkit-border-image: url("../images/button-back.png") 0 4 30 12;
+}
+
+.ibox-header .button.back.highlighted {
+    -webkit-border-image: url("../images/button-back.png") 30 4 0 12;
+}
+
+.ibox-header .button.right > img {
+    width: 17px;
+    height: 17px;
+    padding: 7px 0 6px;
+}
+
+.ibox-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    overflow: hidden;
+    background-image: url("../images/view-background-stripe.png");
+}
+
+.ibox-view {
+    position: absolute;
+}
+
+.ibox-view .wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+

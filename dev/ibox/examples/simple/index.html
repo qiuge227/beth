@@ -1,0 +1,242 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=320.1, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<title>Simple Example</title>
+
+<link rel="stylesheet" href="../../resources/css/ibox.css" media="all" />
+<style type="text/css">
+    .section {
+        padding: 10px 9px 0 9px;
+        margin: 0;
+    }
+
+    .section > h1 {
+        padding: 8px 0 8px 10px;
+    }
+
+    .section > *, .cells > * {
+        margin: 0;
+        font: normal bold 17px Helvetica;
+        color: #4d576d;
+        text-shadow: #fafafa 0 1px 0;
+    }
+
+    .section:last-of-type {
+        padding-bottom: 10px;
+    }
+
+    .cells {
+        position: relative;
+    }
+
+    .cells > div {
+        position: relative;
+        height: 43px;
+        background-color: #ffffff;
+        color: #000000;
+        border: 1px solid #a8abad;
+        border-bottom: none;
+    }
+
+    .cells > div:last-of-type {
+        height: 42px;
+        border: 1px solid #a8abad;
+        -webkit-border-bottom-left-radius: 10px;
+        -webkit-border-bottom-right-radius: 10px;
+    }
+
+    .cells > div:first-of-type {
+        -webkit-border-top-left-radius: 10px;
+        -webkit-border-top-right-radius: 10px;
+    }
+
+    .cell.selected {
+        background-image: url("selection.png");
+        background-repeat: repeat-x;
+    }
+
+    .cell.selected > span {
+        color: #ffffff !important;
+    }
+
+    .cell.selected > .next {
+        background-image: url("next-selected.png");
+    }
+
+    .cell > .next {
+        position: absolute;
+        top: 14px;
+        right: 9px;
+        width: 10px;
+        height: 13px;
+        pointer-events: none;
+        -webkit-user-select: none;
+        background-image: url("next.png");
+        font: bold 17px Helvetica;
+        color: #000000;
+        text-shadow: rgb(250, 250, 250) 0px 1px 0px;
+    }
+
+    .cell > .text-label {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        right: 25px !important;
+        overflow: hidden;
+        font: bold 17px Helvetica;
+        color: #000000;
+        line-height: 21px;
+        text-overflow: ellipsis;
+        text-shadow: none;
+        white-space: nowrap;
+    }
+
+    div.content {
+        background: #ffffff;
+        padding: 10px;
+        font: normal .95em Helvetica, sans-serif;
+        line-height: 1.2em;
+    }
+
+    div.content .ListDescriptor {
+        margin: .25em 0 .25em -1.35em;
+    }
+
+    div.content ul.ListDescriptor > li > .Description {
+        margin-left: -1.25em;
+    }
+
+    ul.ListDescriptor>li {
+        list-style-type: none;
+    }
+
+    .Term {
+        display: inline;
+        font-weight: bold;
+    }
+
+    h1 {
+        margin: 10px 0 0 0;
+        font-size: 19px;
+        font-weight: bold;
+        line-height: 1.2em;
+        color: #000;
+    }
+
+    p.Para {
+        margin-top: 1em;
+        margin-bottom: 1em;
+        word-break: break-word;
+        white-space: pre-wrap;
+    }
+
+    p.Figure {
+        margin-top: 1.5em;
+        margin-bottom: 1.35em;
+    }
+</style>
+</head>
+
+<body>
+
+<script id="firstViewTmpl" type="text/tmpl">
+    <div class="section">
+        <h1></h1>
+        <div class="cells">
+            <div class="cell">
+                <div class="next"></div>
+                <span class="text-label">iPhone 概览</span>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h1></h1>
+        <div class="cells">
+            <div class="cell">
+                <div class="next"></div>
+                <span class="text-label">配件</span>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h1>按钮</h1>
+        <div class="cells">
+            <div class="cell">
+                <div class="next"></div>
+                <span class="text-label">开/关按钮</span>
+            </div>
+            <div class="cell">
+                <div class="next"></div>
+                <span class=" text-label">主屏幕按钮</span>
+            </div>
+            <div class="cell">
+                <div class="next"></div>
+                <span class="text-label">音量按钮</span>
+            </div>
+            <div class="cell">
+                <div class="next"></div>
+                <span class="text-label">响铃/静音开关</span>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h1></h1>
+        <div class="cells">
+            <div class="cell">
+                <div class="next"></div>
+                <span class="text-label">状态图标</span>
+            </div>
+        </div>
+    </div>
+</script>
+<script id="secondViewTmpl" type="text/tmpl">
+    <div class="content">
+        <h1>打开应用程序和在应用程序之间切换</h1>
+        <p class="Para">您使用手指在触摸屏上轻按、连按两次、推送以及缩放对象来与 iPhone 互动。若要前往主屏幕，请按下主屏幕按钮<img src="http://help.apple.com/iphone/6/zh-Hans.lproj/Art/IL_home.png" alt="" type="" class="inlineGraphic" height="13" width="13">。</p>
+        <ul class="ListDescriptor">
+            <li class="Item"><p class="Description"><span class="Term">打开应用程序： &nbsp;</span>轻按它。</p></li>
+        </ul>
+        <p class="Figure">
+            <img src="http://help.apple.com/iphone/6/zh-Hans.lproj/Art/BSC_TapApp_P1.png" alt="一种手势，食指在轻按应用程序。" type="" class="Graphic" height="180" width="291">
+        </p>
+        <p class="Para">若要返回主屏幕，请再次按下主屏幕按钮 <img src="http://help.apple.com/iphone/6/zh-Hans.lproj/Art/IL_home.png" alt="" type="" class="inlineGraphic" height="13" width="13">。</p>
+        <ul class="ListDescriptor">
+            <li class="Item"><p class="Description"><span class="Term">查看其他主屏幕：&nbsp; </span>向左或向右推送。</p></li>
+        </ul>
+        <p class="Figure">
+            <img src="http://help.apple.com/iphone/6/zh-Hans.lproj/Art/BSC_swipeHome_P1.png" alt="一种手势，食指从屏幕右侧快速滑动到屏幕左侧。" type="" class="Graphic" height="181" width="292">
+        </p>
+        <ul class="ListDescriptor">
+            <li class="Item">
+                <p class="Description">
+                    <span class="Term">前往第一个主屏幕：&nbsp; </span>按下主屏幕按钮<img src="http://help.apple.com/iphone/6/zh-Hans.lproj/Art/IL_home.png" alt="" type="" class="inlineGraphic" height="13" width="13">。
+                </p>
+            </li>
+        </ul>
+        <ul class="ListDescriptor">
+            <li class="Item">
+                <p class="Description">
+                    <span class="Term">显示最近使用的应用程序：&nbsp; </span>连按主屏幕按钮<img src="http://help.apple.com/iphone/6/zh-Hans.lproj/Art/IL_home.png" alt="" type="" class="inlineGraphic" height="13" width="13"> 来显示多任务栏。
+                </p>
+                <p class="Para">轻按某个应用程序以再次使用它。向左推送以查看更多应用程序。</p>
+                <p></p>
+            </li>
+        </ul>
+        <p class="Figure">
+            <img src="http://help.apple.com/iphone/6/zh-Hans.lproj/Art/BSC_appSwitch.png" alt="屏幕显示的多任务栏底部包含最近使用的四个应用程序。" type="" class="Graphic" height="180" width="294">
+        </p>
+        <p class="Para">如果您拥有许多应用程序，您可能想要使用 Spotlight 来找到这些应用程序的位置并将它们打开。请参阅<a href="iph3c511548.html">搜索</a>。</p><br>
+    </div>
+</script>
+<script type="text/javascript" src="../assets/artTemplate-2.0.1.js"></script>
+<script type="text/javascript" src="../assets/iscroll-4.2.5.js"></script>
+<script type="text/javascript" src="../../ibox.js"></script>
+<script type="text/javascript" src="simple.js"></script>
+
+</body>
+</html>
