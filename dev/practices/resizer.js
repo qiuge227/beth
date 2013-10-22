@@ -9,6 +9,7 @@
 
     var initialized = false,
         callbackFn, options,
+        resizeTimer,
         lastWidth, lastHeight;
 
     function init() {
@@ -20,6 +21,14 @@
     }
 
     function resize() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            resizeTimer = null;
+            processResize();
+        }, 100);
+    }
+
+    function processResize() {
         var innerWidth = window.innerWidth,
             innerHeight = window.innerHeight,
             screenWidth = window.screen.width,
