@@ -1,7 +1,7 @@
 (function(window) {
     var navigator = window.navigator,
         adapter = window.adapter,
-        support = window.support,
+        supporter = window.supporter,
         result = function(val, defaultValue) {
             var type = typeof val;
             return type === 'undefined' ? defaultValue : (type === 'function' ? val.call(window) : val);
@@ -39,7 +39,7 @@
             offsetBottom = result(options.offsetBottom, 0),
             width = innerWidth, height;
 
-        if (support.isSmartDevice && support.isSafari && !support.os.ios7) { // 计算高度，收起 iOS6 顶部导航条
+        if (supporter.isSmartDevice && supporter.isSafari && !supporter.os.ios7) { // 计算高度，收起 iOS6 顶部导航条
             height = navigator.standalone ? innerHeight : (window.orientation === 0 ? screenHeight - 44 : screenWidth - 32) - 20;
             height = height < innerHeight ? innerHeight : height;
         } else {

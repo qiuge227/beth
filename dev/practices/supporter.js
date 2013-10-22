@@ -31,7 +31,7 @@
         os.wp8 = /^8/.test(os.version);
     }
 
-    window.support = {
+    window.supporter = {
         /**
          * 移动设备操作系统信息，可能会包含一下属性:
          *
