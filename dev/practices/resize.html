@@ -37,7 +37,7 @@
 <script type="text/javascript">
     var ct = document.querySelector('.ct'),
         spans = document.querySelectorAll('span');
-    resizer(function(w, h) {
+    resizer.on(function(w, h) {
         ct.style.width = w + 'px';
         ct.style.height = h + 'px';
         spans[0].innerHTML = w + 'px';

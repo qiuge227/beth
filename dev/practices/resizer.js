@@ -10,7 +10,7 @@
     var initialized = false,
         callbackFn, options,
         resizeTimer,
-        lastWidth, lastHeight;
+        resizer;
 
     function init() {
         if (!initialized) {
@@ -49,17 +49,21 @@
         width -= offsetLeft - offsetRight;
         height -= offsetTop - offsetBottom;
 
-        if (width != lastWidth || height != lastHeight) {
-            lastWidth = width;
-            lastHeight = height;
+        if (width != resizer.width || height != resizer.height) {
+            resizer.width = width;
+            resizer.height = height;
             if (callbackFn) callbackFn.call(window, width, height);
         }
     }
 
-    window.resizer = function(cb, opts) {
-        callbackFn = cb;
-        options = opts || {};
-        init();
-        resize();
+    resizer = {
+        on: function(cb, opts) {
+            callbackFn = cb;
+            options = opts || {};
+            init();
+            resize();
+        }
     };
+
+    window.resizer = resizer;
 })(window);
