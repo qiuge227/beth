@@ -1,6 +1,6 @@
 (function(window) {
     var dummyStyle = document.createElement('div').style,
-        propPrefix = (function () {
+        propPrefix = (function() {
             var vendors = 't,webkitT,MozT,msT,OT'.split(','),
                 t,
                 i = 0,
