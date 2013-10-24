@@ -2,7 +2,7 @@
     var navigator = window.navigator,
         userAgent = navigator.userAgent,
         android = userAgent.match(/(Android)[\s\/]+([\d\.]+)/),
-        ios = userAgent.match(/(iPad|iPhone|iPod)\s+OS\s([\d_\.]+)/),
+        ios = userAgent.match(/(iPad|iPhone|iPod);[\w\s]+OS\s([\d_\.]+)/),
         wp = userAgent.match(/(Windows\s+Phone)\s([\d\.]+)/),
         isWebkit = /WebKit\/[\d.]+/i.test(userAgent),
         isSafari = ios ? (navigator.standalone ? isWebkit : (/Safari/i.test(userAgent) && !/CriOS/i.test(userAgent) && !/MQQBrowser/i.test(userAgent))) : false,
@@ -20,7 +20,6 @@
             os.ipad = true;
         } else if (ios[1] === 'iPhone') {
             os.iphone = true;
-            os.iphone5 = window.screen.height == 568;
         } else if (ios[1] === 'iPod') {
             os.ipod = true;
         }
