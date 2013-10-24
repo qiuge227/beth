@@ -6,8 +6,13 @@
  */
 (function(window) {
     var navigator = window.navigator,
-        pointerEnabled = navigator.msPointerEnabled,
         isAndroid = /Android[\s\/]+[\d.]+/i.test(navigator.userAgent),
+        msPointerEnabled = navigator.msPointerEnabled,
+        TOUCH_EVENTS = {
+            start: msPointerEnabled ? 'MSPointerDown' : 'touchstart',
+            move: msPointerEnabled ? 'MSPointerMove' : 'touchmove',
+            end: msPointerEnabled ? 'MSPointerUp' : 'touchend'
+        },
         dummyStyle = document.createElement('div').style,
         vendor = (function() {
             var vendors = 't,webkitT,MozT,msT,OT'.split(','),
@@ -39,11 +44,6 @@
             return 'transitionend';
         })(),
         noop = function() {},
-        proxy = function(fn, scope) {
-            return function() {
-                return fn.apply(scope, arguments);
-            };
-        },
         addClass = function(elem, value) {
             var classes, cur, clazz, i;
             classes = (value || '').match(/\S+/g) || [];
@@ -95,7 +95,7 @@
         }
 
         this.el = typeof this.targetSelector === 'string' ? document.querySelector(this.targetSelector) : this.targetSelector;
-        if (pointerEnabled) this.el.style.msTouchAction = 'pan-y';
+        if (msPointerEnabled) this.el.style.msTouchAction = 'pan-y';
         this.el.style.position = 'relative';
 
         this.items = this.itemSelector ? this.el.querySelectorAll(this.itemSelector): this.el.children;
@@ -110,13 +110,11 @@
 
         if (this.prevSelector) {
             this.prevEl = document.querySelector(this.prevSelector);
-            this.onPrevClickProxy = proxy(this.onPrevClick, this);
-            this.prevEl.addEventListener('click', this.onPrevClickProxy, false);
+            this.prevEl.addEventListener('click', this, false);
         }
         if (this.nextSelector) {
             this.nextEl = document.querySelector(this.nextSelector);
-            this.onNextClickProxy = proxy(this.onNextClick, this);
-            this.nextEl.addEventListener('click', this.onNextClickProxy, false);
+            this.nextEl.addEventListener('click', this, false);
         }
         if (this.indicatorSelector) {
             this.indicators = document.querySelectorAll(this.indicatorSelector);
@@ -127,14 +125,7 @@
             }
         }
 
-        this.onTouchStartProxy = proxy(this.onTouchStart, this);
-        this.onTouchMoveProxy = proxy(this.onTouchMove, this);
-        this.onTouchEndProxy = proxy(this.onTouchEnd, this);
-        if (pointerEnabled) {
-            this.el.addEventListener('MSPointerDown', this.onTouchStartProxy, false);
-        } else {
-            this.el.addEventListener('touchstart', this.onTouchStartProxy, false);
-        }
+        this.el.addEventListener(TOUCH_EVENTS.start, this, false);
 
         var activeEl = this.items[this.activeIndex];
         activeEl.style.display = 'block';
@@ -464,22 +455,14 @@
                 }, 3000);
             }
 
-            if (pointerEnabled) {
-                me.el.removeEventListener('MSPointerMove', me.onTouchMoveProxy, false);
-                me.el.removeEventListener('MSPointerUp', me.onTouchEndProxy, false);
-                me.el.addEventListener('MSPointerMove', me.onTouchMoveProxy, false);
-                me.el.addEventListener('MSPointerUp', me.onTouchEndProxy, false);
-            } else {
-                me.el.removeEventListener('touchmove', me.onTouchMoveProxy, false);
-                me.el.removeEventListener('touchend', me.onTouchEndProxy, false);
-                me.el.addEventListener('touchmove', me.onTouchMoveProxy, false);
-                me.el.addEventListener('touchend', me.onTouchEndProxy, false);
-            }
-
+            me.el.removeEventListener(TOUCH_EVENTS.move, me, false);
+            me.el.removeEventListener(TOUCH_EVENTS.end, me, false);
+            me.el.addEventListener(TOUCH_EVENTS.move, me, false);
+            me.el.addEventListener(TOUCH_EVENTS.end, me, false);
             delete me.horizontal;
 
-            var pageX = pointerEnabled ? e.pageX : e.touches[0].pageX,
-                pageY = pointerEnabled ? e.pageY : e.touches[0].pageY,
+            var pageX = msPointerEnabled ? e.pageX : e.touches[0].pageX,
+                pageY = msPointerEnabled ? e.pageY : e.touches[0].pageY,
                 context = me.getContext(),
                 activeEl = me.items[context.active],
                 width = activeEl.offsetWidth,
@@ -505,7 +488,7 @@
             var me = this;
 
             clearTimeout(me.touchMoveTimeout);
-            if (pointerEnabled) {
+            if (msPointerEnabled) {
                 // IE10 for Windows Phone 8 的 pointerevent， 触发 MSPointerDown 之后，
                 // 如果触控移动轨迹不符合 -ms-touch-action 规则，则不会触发 MSPointerUp 事件。
                 me.touchMoveTimeout = setTimeout(function() {
@@ -517,8 +500,8 @@
                 return;
             }
 
-            me.touchCoords.stopX = pointerEnabled ? e.pageX : e.touches[0].pageX;
-            me.touchCoords.stopY = pointerEnabled ? e.pageY : e.touches[0].pageY;
+            me.touchCoords.stopX = msPointerEnabled ? e.pageX : e.touches[0].pageX;
+            me.touchCoords.stopY = msPointerEnabled ? e.pageY : e.touches[0].pageY;
 
             var offsetX = me.touchCoords.startX - me.touchCoords.stopX,
                 absX = Math.abs(offsetX),
@@ -562,13 +545,8 @@
         onTouchEnd: function(e) {
             clearTimeout(this.androidTouchMoveTimeout);
             clearTimeout(this.touchMoveTimeout);
-            if (pointerEnabled) {
-                this.el.removeEventListener('MSPointerMove', this.onTouchMoveProxy, false);
-                this.el.removeEventListener('MSPointerUp', this.onTouchEndProxy, false);
-            } else {
-                this.el.removeEventListener('touchmove', this.onTouchMoveProxy, false);
-                this.el.removeEventListener('touchend', this.onTouchEndProxy, false);
-            }
+            this.el.removeEventListener(TOUCH_EVENTS.move, this, false);
+            this.el.removeEventListener(TOUCH_EVENTS.end, this, false);
 
             if (this.touchCoords && !this.sliding) {
                 var context = this.getContext(),
@@ -613,6 +591,27 @@
             if (this.autoPlay) this.run();
         },
 
+        handleEvent: function(e) {
+            switch (e.type) {
+                case TOUCH_EVENTS.start:
+                    this.onTouchStart(e);
+                    break;
+                case TOUCH_EVENTS.move:
+                    this.onTouchMove(e);
+                    break;
+                case TOUCH_EVENTS.end:
+                    this.onTouchEnd(e);
+                    break;
+                case 'click':
+                    if (e.target == this.prevEl) {
+                        this.onPrevClick();
+                    } else if (e.target == this.nextEl) {
+                        this.onNextClick();
+                    }
+                    break;
+            }
+        },
+
         /**
          * 销毁
          */
@@ -620,23 +619,17 @@
             this.destroyed = true;
             this.stop();
             if (this.prevEl) {
-                this.prevEl.removeEventListener('click', this.onPrevClickProxy, false);
+                this.prevEl.removeEventListener('click', this, false);
                 this.prevEl = null;
             }
             if (this.nextEl) {
-                this.nextEl.removeEventListener('click', this.onNextClickProxy, false);
+                this.nextEl.removeEventListener('click', this, false);
                 this.nextEl = null;
             }
             this.indicators = null;
-            if (pointerEnabled) {
-                this.el.removeEventListener('MSPointerDown', this.onTouchStartProxy, false);
-                this.el.removeEventListener('MSPointerMove', this.onTouchMoveProxy, false);
-                this.el.removeEventListener('MSPointerUp', this.onTouchEndProxy, false);
-            } else {
-                this.el.removeEventListener('touchstart', this.onTouchStartProxy, false);
-                this.el.removeEventListener('touchmove', this.onTouchMoveProxy, false);
-                this.el.removeEventListener('touchend', this.onTouchEndProxy, false);
-            }
+            this.el.removeEventListener(TOUCH_EVENTS.start, this, false);
+            this.el.removeEventListener(TOUCH_EVENTS.move, this, false);
+            this.el.removeEventListener(TOUCH_EVENTS.end, this, false);
             this.el = this.items = null;
             this.iscroll = null;
         }
