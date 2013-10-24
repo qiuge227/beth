@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<title>test resize</title>
+<title>test case</title>
 
 <style type="text/css">
     html, body, div {
@@ -26,6 +26,8 @@
 <body>
 
 <div class="ct">
+    <div>userAgent: <span></span></div>
+    <div><span></span></div>
     <div>width: <span></span></div>
     <div>height: <span></span></div>
 </div>
@@ -36,12 +38,26 @@
 <script type="text/javascript" src="resizer.js"></script>
 <script type="text/javascript">
     var ct = document.querySelector('.ct'),
-        spans = document.querySelectorAll('span');
+        spans = document.querySelectorAll('span'),
+        str = '', o;
+
+    spans[0].innerHTML = window.navigator.userAgent;
+
+    for (o in supporter.os) {
+        str += o + ': ' + supporter.os[o] + '<br>';
+    }
+    for (o in supporter) {
+        if (o !== 'os') {
+            str += o + ': ' + supporter[o] + '<br>';
+        }
+    }
+    spans[1].innerHTML = str;
+
     resizer.on(function(w, h) {
         ct.style.width = w + 'px';
         ct.style.height = h + 'px';
-        spans[0].innerHTML = w + 'px';
-        spans[1].innerHTML = h + 'px';
+        spans[2].innerHTML = w + 'px';
+        spans[3].innerHTML = h + 'px';
     });
 </script>
 </body>
