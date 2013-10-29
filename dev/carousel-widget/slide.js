@@ -12,6 +12,7 @@
             move: msPointerEnabled ? 'MSPointerMove' : 'touchmove',
             end: msPointerEnabled ? 'MSPointerUp' : 'touchend'
         },
+        slice = Array.prototype.slice,
         dummyStyle = document.createElement('div').style,
         vendor = (function() {
             var vendors = 't,webkitT,MozT,msT,OT'.split(','),
@@ -99,7 +100,7 @@
 
         this.wrap = this.wrapSelector ? this.el.querySelector(this.wrapSelector): this.el.children[0];
         this.wrap.style.cssText = cssVendor + 'transform:translate3d(' + (-this.getItemWidth() * this.activeIndex) + 'px,0px,0px);' + cssVendor + 'transition:' + cssVendor + 'transform 0ms;';
-        this.items = Array.prototype.slice.call(this.wrap.children, 0);
+        this.items = slice.call(this.wrap.children, 0);
 
         if (this.prevSelector) {
             this.prevEl = document.querySelector(this.prevSelector);
@@ -111,11 +112,7 @@
         }
         if (this.indicatorSelector) {
             this.indicators = document.querySelectorAll(this.indicatorSelector);
-            if (this.indicators.length != this.items.length) {
-                this.indicators = null;
-            } else {
-                this.indicators = Array.prototype.slice.call(this.indicators, 0);
-            }
+            this.indicators = slice.call(this.indicators, 0);
         }
 
         this.el.addEventListener(TOUCH_EVENTS.start, this, false);
@@ -309,8 +306,8 @@
                     me.wrap.removeEventListener(transitionEndEvent, handler, false);
                     me.wrap.style[transitionDuration] = '0ms';
                     if (me.indicators && me.indicatorCls) {
-                        removeClass(me.indicators[lastActive], me.indicatorCls);
-                        addClass(me.indicators[me.activeIndex], me.indicatorCls);
+                        if (me.indicators[lastActive]) removeClass(me.indicators[lastActive], me.indicatorCls);
+                        if (me.indicators[me.activeIndex]) addClass(me.indicators[me.activeIndex], me.indicatorCls);
                     }
                     me.onSlide(me.activeIndex);
                 };
@@ -450,6 +447,11 @@
         resetStatus: function() {
             if (this.iscroll) this.iscroll.enable();
             if (this.autoPlay) this.run();
+        },
+
+        refresh: function() {
+            this.items = slice.call(this.wrap.children, 0);
+
         },
 
         handleEvent: function(e) {

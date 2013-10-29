@@ -6,13 +6,14 @@
  */
 (function(window) {
     var navigator = window.navigator,
-        isAndroid = /Android[\s\/]+[\d.]+/i.test(navigator.userAgent),
+        isAndroid = /Android/i.test(navigator.userAgent),
         msPointerEnabled = navigator.msPointerEnabled,
         TOUCH_EVENTS = {
             start: msPointerEnabled ? 'MSPointerDown' : 'touchstart',
             move: msPointerEnabled ? 'MSPointerMove' : 'touchmove',
             end: msPointerEnabled ? 'MSPointerUp' : 'touchend'
         },
+        slice = Array.prototype.slice,
         dummyStyle = document.createElement('div').style,
         vendor = (function() {
             var vendors = 't,webkitT,MozT,msT,OT'.split(','),
@@ -99,7 +100,7 @@
         this.el.style.position = 'relative';
 
         this.items = this.itemSelector ? this.el.querySelectorAll(this.itemSelector): this.el.children;
-        this.items = Array.prototype.slice.call(this.items, 0);
+        this.items = slice.call(this.items, 0);
 
         var width = this.width === 'auto' ? this.el.offsetWidth : this.width;
         var active = this.activeIndex;
@@ -118,11 +119,7 @@
         }
         if (this.indicatorSelector) {
             this.indicators = document.querySelectorAll(this.indicatorSelector);
-            if (this.indicators.length != this.items.length) {
-                this.indicators = null;
-            } else {
-                this.indicators = Array.prototype.slice.call(this.indicators, 0);
-            }
+            this.indicators = slice.call(this.indicators, 0);
         }
 
         this.el.addEventListener(TOUCH_EVENTS.start, this, false);
@@ -364,8 +361,8 @@
                     toEl.style.position = 'relative';
                     toEl.style[transitionDuration] = oms;
                     if (me.indicators && me.indicatorCls) {
-                        removeClass(me.indicators[lastActive], me.indicatorCls);
-                        addClass(me.indicators[me.activeIndex], me.indicatorCls);
+                        if (me.indicators[lastActive]) removeClass(me.indicators[lastActive], me.indicatorCls);
+                        if (me.indicators[me.activeIndex]) addClass(me.indicators[me.activeIndex], me.indicatorCls);
                     }
                     me.sliding = false;
                     me.onSlide(me.activeIndex);
