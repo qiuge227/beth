@@ -32,7 +32,7 @@
 !!('WebkitOverflowScrolling' in document.documentElement.style)
 ```
 
-在原生局部滚动```overflow: scroll```下，实现多视图布局的原理与IScroll是一样的，给内容外层容器加下面的样式就可以了：
+```overflow: scroll```的兼容性会有点问题，Android3+才支持。使用```overflow: scroll```实现多视图布局的原理与IScroll是一样的，给内容外层容器加下面的样式就可以了：
 
 ```
 .wrapper {
