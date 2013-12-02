@@ -600,9 +600,9 @@
                     this.onTouchEnd(e);
                     break;
                 case 'click':
-                    if (e.target == this.prevEl) {
+                    if (e.currentTarget == this.prevEl) {
                         this.onPrevClick();
-                    } else if (e.target == this.nextEl) {
+                    } else if (e.currentTarget == this.nextEl) {
                         this.onNextClick();
                     }
                     break;

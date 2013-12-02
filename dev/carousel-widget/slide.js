@@ -450,8 +450,11 @@
         },
 
         refresh: function() {
+            var last = this.getLastIndex();
             this.items = slice.call(this.wrap.children, 0);
-
+            if (this.activeIndex > last) {
+                this.to(last, true);
+            }
         },
 
         handleEvent: function(e) {
@@ -466,9 +469,9 @@
                     this.onTouchEnd(e);
                     break;
                 case 'click':
-                    if (e.target == this.prevEl) {
+                    if (e.currentTarget == this.prevEl) {
                         this.onPrevClick();
-                    } else if (e.target == this.nextEl) {
+                    } else if (e.currentTarget == this.nextEl) {
                         this.onNextClick();
                     }
                     break;
