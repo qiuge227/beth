@@ -7,9 +7,9 @@
 
 当横屏时，fixed元素不能自适应横屏的宽度，bug表现如下：
 
-![fixed-bug-1](https://raw.github.com/maxzhang/maxzhang.github.com/master/articles/images/fixed-bug-1.png)
+![fixed-bug-1](https://raw.github.com/maxzhang/maxzhang.github.com/master/articles/images/fixed-bug-1.jpg)
 
-![fixed-bug-2](https://raw.github.com/maxzhang/maxzhang.github.com/master/articles/images/fixed-bug-2.png)
+![fixed-bug-2](https://raw.github.com/maxzhang/maxzhang.github.com/master/articles/images/fixed-bug-2.jpg)
 
 这个bug主要在android自带浏览器下出现，与手机型号和系统版本无关，几乎所有android都无法幸免，在不同的手机下可能表现会有一点点差异，但都是同样的bug。
 
@@ -20,7 +20,7 @@
 1. 不能将fixed元素直接声明在`<body>`下，必须在外面嵌套一个文档流容器
 2. fixed元素下面必须嵌套一个`position:absolute`元素，用来装载内容
 
-别问我为什么这个解决方案是这样，我也不知道为什么，但是我知道这个东西竟然神奇的好使了，如有高人请指点迷津。
+别问我为什么这样就好了，我也不知道为什么，但是我知道这个东西竟然神奇的好使了，如有高人请指点迷津。
 
 ```
 <header>
