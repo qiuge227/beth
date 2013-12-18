@@ -17,10 +17,16 @@
 
 下面这个解决方案在12款主流手机上测试通过（三星、小米、魅族、华为、中心等），如果还未完全解决可以回复这篇文章。
 
-1. 不能将fixed元素直接声明在`<body>`下，必须在外面嵌套一个文档流容器
-2. fixed元素下面必须嵌套一个`position:absolute`元素，用来装载内容
+1. 不能将fixed元素直接声明在`<body>`下，必须在外层嵌套一个文档流容器
+2. fixed元素内部必须嵌套一个`position:absolute`元素，用来装载内容
 
-别问我为什么这样就好了，我也不知道为什么，但是我知道这个东西竟然神奇的好使了，如有高人请指点迷津。
+别问我为什么，我也不知道为什么，但是这样写竟然神奇的好使了，如有高人请指点迷津。
+
+我在下面的例子中声明了两种最常用的fixed元素：header和footer
+
+**position fixed header**
+
+header中我使用了float来定位左右两边的icon。右侧icon一定不能使用`position:absolute`定位，如果使用了absolute，在一些android自带浏览器下横屏时，右侧icon无法自适应到右侧，会出现与上面第二幅图中差不多的bug。
 
 ```
 <header>
@@ -38,7 +44,23 @@
 </header>
 ```
 
-解决方案DEMO：[http://jsbin.com/omaCOSir/latest](http://jsbin.com/omaCOSir/latest)
+**position fixed footer**
+
+footer中是一个flex的布局，'display:flex'容器一定不要直接声明到fixed元素下，必须使用'position:absolute'容器包装一层。
+
+```
+<footer>
+    <div class="fixed">
+        <div class="wrap flex">
+            <a href="#"><span class="glyphicon glyphicon-picture"></span></a>
+            <a href="#"><span class="glyphicon glyphicon-film"></span></a>
+            <a href="#"><span class="glyphicon glyphicon-qrcode"></span></a>
+        </div>
+    </div>
+</footer>
+```
+
+**解决方案DEMO：[http://jsbin.com/omaCOSir/latest](http://jsbin.com/omaCOSir/latest)**
 
 **题外话**
 
