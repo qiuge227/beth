@@ -110,15 +110,15 @@
         this.setWidth(width);
 
         if (this.prevSelector) {
-            this.prevEl = document.querySelector(this.prevSelector);
+            this.prevEl = typeof this.prevSelector === 'string' ? document.querySelector(this.prevSelector) : this.prevSelector;
             this.prevEl.addEventListener('click', this, false);
         }
         if (this.nextSelector) {
-            this.nextEl = document.querySelector(this.nextSelector);
+            this.nextEl = typeof this.nextSelector === 'string' ? document.querySelector(this.nextSelector) : this.prevSelector;
             this.nextEl.addEventListener('click', this, false);
         }
         if (this.indicatorSelector) {
-            this.indicators = document.querySelectorAll(this.indicatorSelector);
+            this.indicators = typeof this.indicatorSelector === 'string' ? document.querySelectorAll(this.indicatorSelector) : this.indicatorSelector;
             this.indicators = slice.call(this.indicators, 0);
         }
 
