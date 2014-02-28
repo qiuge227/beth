@@ -114,7 +114,7 @@
             this.prevEl.addEventListener('click', this, false);
         }
         if (this.nextSelector) {
-            this.nextEl = typeof this.nextSelector === 'string' ? document.querySelector(this.nextSelector) : this.prevSelector;
+            this.nextEl = typeof this.nextSelector === 'string' ? document.querySelector(this.nextSelector) : this.nextSelector;
             this.nextEl.addEventListener('click', this, false);
         }
         if (this.indicatorSelector) {
@@ -421,14 +421,16 @@
         },
 
         // private
-        onPrevClick: function() {
+        onPrevClick: function(e) {
+            if (e) e.preventDefault();
             this.clear();
             this.prev();
             if (this.autoPlay) this.run();
         },
 
         // private
-        onNextClick: function() {
+        onNextClick: function(e) {
+            if (e) e.preventDefault();
             this.clear();
             this.next();
             if (this.autoPlay) this.run();
@@ -458,8 +460,8 @@
             me.el.addEventListener(TOUCH_EVENTS.end, me, false);
             delete me.horizontal;
 
-            var pageX = msPointerEnabled ? e.pageX : e.touches[0].pageX,
-                pageY = msPointerEnabled ? e.pageY : e.touches[0].pageY,
+            var clientX = msPointerEnabled ? e.clientX : e.touches[0].clientX,
+                clientY = msPointerEnabled ? e.clientY : e.touches[0].clientY,
                 context = me.getContext(),
                 activeEl = me.items[context.active],
                 width = activeEl.offsetWidth,
@@ -475,8 +477,8 @@
             setShow(activeEl, 0, true);
 
             me.touchCoords = {};
-            me.touchCoords.startX = pageX;
-            me.touchCoords.startY = pageY;
+            me.touchCoords.startX = clientX;
+            me.touchCoords.startY = clientY;
             me.touchCoords.timeStamp = e.timeStamp;
         },
 
@@ -497,8 +499,8 @@
                 return;
             }
 
-            me.touchCoords.stopX = msPointerEnabled ? e.pageX : e.touches[0].pageX;
-            me.touchCoords.stopY = msPointerEnabled ? e.pageY : e.touches[0].pageY;
+            me.touchCoords.stopX = msPointerEnabled ? e.clientX : e.touches[0].clientX;
+            me.touchCoords.stopY = msPointerEnabled ? e.clientY : e.touches[0].clientY;
 
             var offsetX = me.touchCoords.startX - me.touchCoords.stopX,
                 absX = Math.abs(offsetX),
@@ -601,9 +603,9 @@
                     break;
                 case 'click':
                     if (e.currentTarget == this.prevEl) {
-                        this.onPrevClick();
+                        this.onPrevClick(e);
                     } else if (e.currentTarget == this.nextEl) {
-                        this.onNextClick();
+                        this.onNextClick(e);
                     }
                     break;
             }
