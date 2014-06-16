@@ -1,6 +1,6 @@
 (function(window) {
 
-    var col = 30, row = 30;
+    var col = 50, row = 50;
     var maxgray = 0, mingray = 255; // 最大、最小灰度值
 
     $('.wrap').width(col * 20);
@@ -87,11 +87,11 @@
         }
         $('.pattern').html(html.join('')).show();
 
-        for (i = 0; i < row; i++) {
+        /*for (i = 0; i < row; i++) {
             for (j = 0; j < col; j++) {
                 flash(i, j);
             }
-        }
+        }*/
     }
 
     function flash(i, j) {
