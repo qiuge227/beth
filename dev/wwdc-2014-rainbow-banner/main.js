@@ -11,7 +11,7 @@
             // 生成离屏画布
             var offcanvas = document.createElement('canvas');
             var imgw, imgh, i, j; // 缩放后的图片尺寸
-            
+
             if (col / row > imageObj.width / imageObj.height) { // 如果画布比图片宽，则以高度为准进行放缩
                 imgw = Math.floor(imageObj.width / imageObj.height * row);
                 imgh = row;
@@ -34,7 +34,7 @@
             var returndata = [];
             for (i = 0; i < row; i++) {
                 returndata[i] = [];
-                for (var j = 0; j < col; j++) {
+                for (j = 0; j < col; j++) {
                     returndata[i][j] = 255;
                 }
             }
@@ -46,7 +46,7 @@
             for (i = 0; i < imgh; i++) {
                 for (j = 0; j < imgw; j++) {
                     var cursor = (i * imgw + j) * 4;
-                    var gray = imgdata.data[cursor] * .3 + imgdata.data[cursor + 1] * .59 + imgdata.data[cursor + 2] * .11; // 取灰度
+                    var gray = imgdata.data[cursor] * 0.3 + imgdata.data[cursor + 1] * 0.59 + imgdata.data[cursor + 2] * 0.11; // 取灰度
                     if (gray > maxgray) maxgray = gray;
                     if (gray < mingray) mingray = gray;
                     returndata[i + startrow][j + startcol] = gray;
@@ -57,11 +57,11 @@
         imageObj.src = imageSrc;
     }
 
-
     function drawPattern(imgdata) {
-        var html = [];
-        for (var i = 0; i < row; i++) {
-            for (var j = 0; j < col; j++) {
+        var html = [], i, j;
+
+        for (i = 0; i < row; i++) {
+            for (j = 0; j < col; j++) {
                 var gray = (imgdata[i][j] - mingray) / (maxgray - mingray); // 以最大和最小灰度为界，计算出相对灰度
                 var extra;
                 switch (Math.ceil(gray * 5)) {
@@ -86,15 +86,17 @@
         }
         $('.pattern').html(html.join('')).show();
 
-        for (var i = 0; i < row; i++) {
-            for (var j = 0; j < col; j++) {
-                (function(i, j) {
-                    setTimeout(function() {
-                        $('.pattern :nth-child(' + (i * col + j + 1) + ')').addClass('flash');
-                    }, i * 1 + j * 2);
-                }(i, j));
+        for (i = 0; i < row; i++) {
+            for (j = 0; j < col; j++) {
+                flash(i, j);
             }
         }
+    }
+
+    function flash(i, j) {
+        setTimeout(function() {
+            $('.pattern :nth-child(' + (i * col + j + 1) + ')').addClass('flash');
+        }, i * 1 + j * 2);
     }
 
 
@@ -111,7 +113,7 @@
         imgreader.readAsDataURL(file);
         imgreader.onload = function(e) {
             loadImage(this.result);
-        }
+        };
     });
 
     loadImage('images/apple.jpg');
