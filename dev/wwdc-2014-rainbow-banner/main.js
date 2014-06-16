@@ -3,6 +3,7 @@
     var col = 30, row = 30;
     var maxgray = 0, mingray = 255; // 最大、最小灰度值
 
+    $('.wrap').width(col * 20);
     $('.pattern').width(col * 20).height(row * 20);
 
     function loadImage(imageSrc) {
