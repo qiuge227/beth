@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>WWDC 2014 Rainbow Banner</title>
+    <style>
+    body, div {
+        margin: 0;
+    }
+    .wrap {
+        margin: 30px auto;
+        width: 600px;
+    }
+    .opts button {
+        display: inline-block;
+    }
+    .pattern {
+        display: none;
+        position: relative;
+        top: 20px;
+        width: 600px;
+        height: 600px;
+        background-image: linear-gradient(to right, #61F755, #00D4AC 20%, #009CFD 40%, #8F44EB 60%, #FF3662 80%, #FF8841);
+    }
+    .pattern div:before, .pattern div:after {
+        display: block;
+        content: ' ';
+        position: absolute;
+    }
+    .cell {
+        position: absolute;
+        left: 0;
+        top: 0;
+        box-sizing: border-box;
+        width: 20px;
+        height: 20px;
+        border: 1px solid #fff;
+        border-radius: 5px 5px;
+        -webkit-transform: scale(0.3);
+        opacity: 0;
+    }
+    .cell.flash {
+        -webkit-transition: all .3s;
+        -webkit-transform: scale(1);
+        opacity: 1;
+    }
+    .cell:before {
+        left: -1px;
+        top: -1px;
+        width: 5px;
+        height: 5px;
+        background-image: radial-gradient(5px at 100% 100%, transparent 0, transparent 70%, #fff);
+    }
+    .cell:after {
+        left: 14px;
+        top: 14px;
+        width: 5px;
+        height: 5px;
+        background-image: radial-gradient(5px at 0% 0%, transparent 0, transparent 70%, #fff);
+    }
+    .corner {
+        width: 100%;
+        height: 100;
+    }
+    .corner:before {
+        left: -1px;
+        top: 14px;
+        width: 5px;
+        height: 5px;
+        background-image: radial-gradient(5px at 100% 0%, transparent 0, transparent 70%, #fff);
+    }
+    .corner:after {
+        left: 14px;
+        top: -1px;
+        width: 5px;
+        height: 5px;
+        background-image: radial-gradient(5px at 0% 100%, transparent 0, transparent 70%, #fff);
+    }
+    .medium {
+        border: 4px solid #fff;
+        border-radius: 7px 7px;
+    }
+    .medium:before {
+        left: -4px;
+        top: -4px;
+        width: 7px;
+        height: 7px;
+        background-image: radial-gradient(7px at 100% 100%, transparent 0, transparent 70%, #fff);
+    }
+    .medium:after {
+        left: 9px;
+        top: 9px;
+        width: 7px;
+        height: 7px;
+        background-image: radial-gradient(7px at 0% 0%, transparent 0, transparent 70%, #fff);
+    }
+    .medium .corner:before {
+        left: -4px;
+        top: 9px;
+        width: 7px;
+        height: 7px;
+        background-image: radial-gradient(7px at 100% 0%, transparent 0, transparent 70%, #fff);
+    }
+    .medium .corner:after {
+        left: 9px;
+        top: -4px;
+        width: 7px;
+        height: 7px;
+        background-image: radial-gradient(7px at 0% 100%, transparent 0, transparent 70%, #fff);
+    }
+    .small {
+        border: 7px solid #fff;
+        border-radius: 9px 9px;
+    }
+    .small:before {
+        left: -7px;
+        top: -7px;
+        width: 9px;
+        height: 9px;
+        background-image: radial-gradient(9px at 100% 100%, transparent 0, transparent 70%, #fff);
+    }
+    .small:after {
+        left: 4px;
+        top: 4px;
+        width: 9px;
+        height: 9px;
+        background-image: radial-gradient(9px at 0% 0%, transparent 0, transparent 70%, #fff);
+    }
+    .small .corner:before {
+        left: -7px;
+        top: 4px;
+        width: 9px;
+        height: 9px;
+        background-image: radial-gradient(9px at 100% 0%, transparent 0, transparent 70%, #fff);
+    }
+    .small .corner:after {
+        left: 4px;
+        top: -7px;
+        width: 9px;
+        height: 9px;
+        background-image: radial-gradient(9px at 0% 100%, transparent 0, transparent 70%, #fff);
+    }
+    .tiny {
+        border: 9px solid #fff;
+        border-radius: 11px 11px;
+    }
+    .tiny:before {
+        left: -9px;
+        top: -9px;
+        width: 11px;
+        height: 11px;
+        background-image: radial-gradient(11px at 100% 100%, transparent 0, transparent 70%, #fff);
+    }
+    .tiny:after {
+        left: 0;
+        top: 0;
+        width: 11px;
+        height: 11px;
+        background-image: radial-gradient(11px at 0% 0%, transparent 0, transparent 70%, #fff);
+    }
+    .tiny .corner:before {
+        left: -9px;
+        top: 0;
+        width: 11px;
+        height: 11px;
+        background-image: radial-gradient(11px at 100% 0%, transparent 0, transparent 70%, #fff);
+    }
+    .tiny .corner:after {
+        left: 0;
+        top: -9px;
+        width: 11px;
+        height: 11px;
+        background-image: radial-gradient(11px at 0% 100%, transparent 0, transparent 70%, #fff);
+    }
+    .white {
+        background-color: #fff;
+    }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="opts">
+            <button data-src="apple.jpg">Apple</button>
+            <button data-src="360.jpg">360</button>
+            <button data-src="adidas.jpg">Adidas</button>
+            <button data-src="windows.jpg">Windows</button>
+            <input type="file" value="">
+        </div>
+        <div class="pattern"></div>
+    </div>
+
+    <script src="jquery.js"></script>
+    <script src="StackBlur.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
