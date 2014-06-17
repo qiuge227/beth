@@ -3,8 +3,11 @@
     var col = 50, row = 50;
     var maxgray = 0, mingray = 255; // 最大、最小灰度值
 
-    $('.wrap').width(col * 20);
-    $('.pattern').width(col * 20).height(row * 20);
+    var $wrap = $('.wrap');
+    var $pattern = $('.pattern');
+
+    $wrap.width(col * 20);
+    $pattern.width(col * 20).height(row * 20);
 
     function loadImage(imageSrc) {
         var imageObj = new Image();
@@ -85,19 +88,19 @@
                 html.push('<div class="cell ', extra,'" style="left:', j * 20, 'px;top:', i * 20, 'px;"><div class="corner"></div></div>');
             }
         }
-        $('.pattern').html(html.join('')).show();
+        $pattern.html(html.join('')).show();
 
-        /*for (i = 0; i < row; i++) {
+        for (i = 0; i < row; i++) {
             for (j = 0; j < col; j++) {
                 flash(i, j);
             }
-        }*/
+        }
     }
 
     function flash(i, j) {
         setTimeout(function() {
-            $('.pattern :nth-child(' + (i * col + j + 1) + ')').addClass('flash');
-        }, i * 1 + j * 2);
+            $pattern[0].children[i * col + j].className += ' flash';
+        }, i * 16.7 + j * 30);
     }
 
 
