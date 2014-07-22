@@ -10,7 +10,7 @@ maxzhang.github.io
 
 ### Lavaflow - 2014/07/22
 
-Lavaflow是一个文章收录系统，基于ThinkJS。http://lavaflow.75team.com/
+Lavaflow是一个文章收录系统，基于[ThinkJS](http://www.thinkjs.org)。http://lavaflow.75team.com/
 
 源码：https://github.com/maxzhang/lavaflow
 
