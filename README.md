@@ -14,11 +14,11 @@ Lavaflow是一个文章收录系统，基于ThinkJS。http://lavaflow.75team.com
 
 源码：https://github.com/maxzhang/lavaflow
 
-![Lavaflow](https://github.com/maxzhang/maxzhang.github.com/blob/master/examples/images/lavaflow-preview.png)
+![Lavaflow](https://raw.githubusercontent.com/maxzhang/maxzhang.github.com/master/examples/images/lavaflow-preview.png)
 
 
 ### WWDC 2014 Rainbow Banner - 2014/06/16
 
-![WDC 2014 Rainbow Banner](https://github.com/maxzhang/maxzhang.github.com/blob/master/examples/images/wwdc-rainbow.png)
+![WDC 2014 Rainbow Banner](https://raw.githubusercontent.com/maxzhang/maxzhang.github.com/master/examples/images/wwdc-rainbow.png)
 
 http://maxzhang.github.io/examples/wwdc-2014-rainbow-banner/
