@@ -19,6 +19,7 @@ Lavaflow是一个文章收录系统，基于ThinkJS。http://lavaflow.75team.com
 
 ### WWDC 2014 Rainbow Banner - 2014/06/16
 
+http://maxzhang.github.io/examples/wwdc-2014-rainbow-banner/
+
 ![WDC 2014 Rainbow Banner](https://raw.githubusercontent.com/maxzhang/maxzhang.github.com/master/examples/images/wwdc-rainbow.png)
 
-http://maxzhang.github.io/examples/wwdc-2014-rainbow-banner/
