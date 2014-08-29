@@ -8,9 +8,16 @@ maxzhang.github.io
 
 ## 我的代码
 
+### WeixinAPI - 2014/08/29
+
+> 微信 WebView JS 接口封装类，用来替代 WeixinJSBridge 超级难用的接口。
+
+源码：https://github.com/maxzhang/WeixinAPI
+
+
 ### Lavaflow - 2014/07/22
 
-Lavaflow是一个文章收录系统，基于[ThinkJS](http://www.thinkjs.org)。 - http://lavaflow.75team.com/
+> Lavaflow是一个文章收录系统，基于[ThinkJS](http://www.thinkjs.org)。 - http://lavaflow.75team.com/
 
 源码：https://github.com/maxzhang/lavaflow
 
