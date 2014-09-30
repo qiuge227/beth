@@ -8,6 +8,21 @@ maxzhang.github.io
 
 ## 我的代码
 
+### TouchStyle - 2014/09/30
+
+> 移动专题框架，快速搭建酷炫的移动专题
+
+DEMO：http://maxzhang.github.io/deb/touchstyle/demo/
+源码：https://github.com/maxzhang/touchstyle
+
+
+### TouchBox - 2014/09/26
+
+> 移动端单页视图库，适用于制作移动专题
+
+源码：https://github.com/maxzhang/touchbox
+
+
 ### WeixinAPI - 2014/08/29
 
 > 微信 WebView JS 接口封装类，用来替代 WeixinJSBridge 超级难用的接口。
