@@ -288,7 +288,6 @@
         
         playMusic: function() {
             if (this.musicEl && !this.playing) {
-                alert(2);
                 this.playing = true;
                 this.musicEl.style[vendor.animation] = 'ts-music-paly-animate 1s linear infinite';
                 this.audio.play();
@@ -421,7 +420,6 @@
                 } else if (e.type === 'pause') {
                     this.onMusicPause(e);
                 }else if (e.type === 'canplay') {
-                    alert(1);
                     this.playMusic();
                 }
             } else if (e.target === this.musicEl) {
