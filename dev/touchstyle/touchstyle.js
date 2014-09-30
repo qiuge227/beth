@@ -258,8 +258,8 @@
                 self.audio.src = musicOptions.src;
                 self.audio.loop = musicOptions.loop === true;
                 if (musicOptions.autoPlay !== false) {
-                    self.audio.preload = true;
                     self.audio.addEventListener('canplay', this, false);
+                    self.audio.load();
                 }
                 
                 self.audio.addEventListener('ended', this, false);
