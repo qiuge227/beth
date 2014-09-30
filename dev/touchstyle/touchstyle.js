@@ -259,7 +259,6 @@
                 self.audio.loop = musicOptions.loop === true;
                 if (musicOptions.autoPlay !== false) {
                     self.audio.addEventListener('canplay', this, false);
-                    self.audio.addEventListener('canplaythrough', this, false);
                     self.audio.load();
                 }
                 
@@ -289,6 +288,7 @@
         
         playMusic: function() {
             if (this.musicEl && !this.playing) {
+                alert(2);
                 this.playing = true;
                 this.musicEl.style[vendor.animation] = 'ts-music-paly-animate 1s linear infinite';
                 this.audio.play();
@@ -420,7 +420,8 @@
                     this.onMusicPause(e);
                 } else if (e.type === 'pause') {
                     this.onMusicPause(e);
-                }else if (e.type === 'canplay' || e.type === 'canplaythrough') {
+                }else if (e.type === 'canplay') {
+                    alert(1);
                     this.playMusic();
                 }
             } else if (e.target === this.musicEl) {
@@ -440,7 +441,6 @@
                 if (this.musicEl) {
                     this.audio.pause();
                     this.audio.removeEventListener('canplay', this, false);
-                    this.audio.removeEventListener('canplaythrough', this, false);
                     this.audio.removeEventListener('ended', this, false);
                     this.audio.removeEventListener('pause', this, false);
                     this.audio = null;
