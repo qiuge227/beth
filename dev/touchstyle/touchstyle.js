@@ -260,6 +260,7 @@
                 if (musicOptions.autoPlay !== false) {
                     self.audio.addEventListener('canplay', this, false);
                     self.audio.load();
+                    self.audio.play();
                 }
                 
                 self.audio.addEventListener('ended', this, false);
