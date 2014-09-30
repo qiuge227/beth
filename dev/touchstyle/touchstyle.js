@@ -259,8 +259,8 @@
                 self.audio.loop = musicOptions.loop === true;
                 if (musicOptions.autoPlay !== false) {
                     self.audio.addEventListener('canplay', this, false);
+                    self.audio.addEventListener('canplaythrough', this, false);
                     self.audio.load();
-                    self.audio.play();
                 }
                 
                 self.audio.addEventListener('ended', this, false);
@@ -420,7 +420,7 @@
                     this.onMusicPause(e);
                 } else if (e.type === 'pause') {
                     this.onMusicPause(e);
-                }else if (e.type === 'canplay') {
+                }else if (e.type === 'canplay' || e.type === 'canplaythrough') {
                     this.playMusic();
                 }
             } else if (e.target === this.musicEl) {
@@ -440,6 +440,7 @@
                 if (this.musicEl) {
                     this.audio.pause();
                     this.audio.removeEventListener('canplay', this, false);
+                    this.audio.removeEventListener('canplaythrough', this, false);
                     this.audio.removeEventListener('ended', this, false);
                     this.audio.removeEventListener('pause', this, false);
                     this.audio = null;
