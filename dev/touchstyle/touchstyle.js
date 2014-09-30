@@ -228,7 +228,6 @@
         
         this.initMusic();
         this.initUpArrow();
-        this.initEvents();
     };
     
     TouchStyle.prototype = {
@@ -286,10 +285,6 @@
             }
         },
         
-        initEvents: function() {
-            
-        },
-        
         playMusic: function() {
             if (this.musicEl && !this.playing) {
                 this.playing = true;
@@ -300,6 +295,8 @@
         
         stopMusic: function() {
             if (this.musicEl && this.playing) {
+                this.playing = false;
+                this.musicEl.style[vendor.animation] = '';
                 this.audio.pause();
             }
         },
