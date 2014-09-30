@@ -12,6 +12,10 @@ maxzhang.github.io
 
 > 移动专题框架，快速搭建酷炫的移动专题
 
+手机扫描下面二维码查看例子：
+
+![demo qrcode](http://maxzhang.github.io/dev/touchstyle/demo/qrcode.png)
+
 DEMO：http://maxzhang.github.io/dev/touchstyle/demo/index.html
 
 源码：https://github.com/maxzhang/touchstyle
