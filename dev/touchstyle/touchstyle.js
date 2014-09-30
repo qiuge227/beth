@@ -378,7 +378,12 @@
                         ele.el = el;
                         itemEl.appendChild(el);
                     }
+                    each(ele.timer, function(tr) {
+                        clearTimeout(tr);
+                    });
+                    removeClass(el, self.getAnimateFunction(ele) + ' animated');
                     el.style.opacity = 0;
+                    el.style.display = 'none';
                 });
             }
         },
@@ -389,18 +394,20 @@
             if (eles) {
                 self.elementReady(current);
                 each(eles, function(ele) {
+                    ele.timer = [];
                     var el = ele.el;
                     if (el) {
                         var duration = ele.duration || self.options.duration;
                         el.style[vendor.animationDuration] = duration + 'ms';
-                        setTimeout(function() {
+                        el.style.display = '';
+                        ele.timer.push(setTimeout(function() {
                             var animation = self.getAnimateFunction(ele);
                             listenTransition(el, duration, function() {
                                 removeClass(el, animation + ' animated');
                             });
                             el.style.opacity = 1;
                             addClass(el, animation + ' animated');
-                        }, ele.delay || 0);
+                        }, ele.delay || 0));
                     }
                 });
             }
