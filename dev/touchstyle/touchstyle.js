@@ -258,7 +258,8 @@
                 self.audio.src = musicOptions.src;
                 self.audio.loop = musicOptions.loop === true;
                 if (musicOptions.autoPlay !== false) {
-                    self.playMusic();
+                    self.audio.preload = true;
+                    self.audio.addEventListener('canplay', this, false);
                 }
                 
                 self.audio.addEventListener('ended', this, false);
@@ -295,8 +296,6 @@
         
         stopMusic: function() {
             if (this.musicEl && this.playing) {
-                this.playing = false;
-                this.musicEl.style[vendor.animation] = '';
                 this.audio.pause();
             }
         },
@@ -420,6 +419,8 @@
                     this.onMusicPause(e);
                 } else if (e.type === 'pause') {
                     this.onMusicPause(e);
+                }else if (e.type === 'canplay') {
+                    this.playMusic();
                 }
             } else if (e.target === this.musicEl) {
                 if (e.type === 'click') {
@@ -437,6 +438,7 @@
                 this.destroyed = true;
                 if (this.musicEl) {
                     this.audio.pause();
+                    this.audio.removeEventListener('canplay', this, false);
                     this.audio.removeEventListener('ended', this, false);
                     this.audio.removeEventListener('pause', this, false);
                     this.audio = null;
