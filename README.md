@@ -8,19 +8,6 @@ maxzhang.github.io
 
 ## 我的代码
 
-### TouchStyle - 2014/09/30
-
-> 快速搭建酷炫的移动专题
-
-手机扫描下面二维码查看例子：
-
-![demo qrcode](http://maxzhang.github.io/dev/touchstyle/demo/qrcode.png)
-
-DEMO：http://maxzhang.github.io/dev/touchstyle/demo/index.html
-
-源码：https://github.com/maxzhang/touchstyle
-
-
 ### TouchBox - 2014/09/26
 
 > 移动端单页视图库，适用于制作移动专题
