@@ -1,5 +1,5 @@
 /*!
- * TouchBox - v1.0.11
+ * TouchBox - v1.0.13
  *
  * @homepage https://github.com/maxzhang/touchbox
  * @author maxzhang<zhangdaiping@gmail.com> http://maxzhang.github.io
@@ -465,9 +465,9 @@
             duration: 400,
             lockScreen: 'off', // 横竖屏锁定，取值范围：'off'、'landscape'、'portrait'
             rotateBody: '',
-            beforeSlide: null, // 已弃用，请使用事件接口 box.on('beforeslide') 代替
-            onSlide: null, // 已弃用，请使用事件接口 box.on('slide') 代替
-            onResize: null, // 已弃用，请使用事件接口 box.on('resize') 代替
+            beforeSlide: null, // 已弃用，请使用事件接口 box.on('beforeslide', function() {}) 代替
+            onSlide: null, // 已弃用，请使用事件接口 box.on('slide', function() {}) 代替
+            onResize: null, // 已弃用，请使用事件接口 box.on('resize', function() {}) 代替
             scope: this
         };
 
@@ -497,6 +497,7 @@
     };
 
     TouchBox.prototype = {
+        // private
         initEvents: function() {
             this.ct.addEventListener(TOUCH_EVENTS.start, this, false);
             this.onOrientationChangeProxy = proxyOrientationChange(this.onOrientationChange, this);
@@ -518,10 +519,12 @@
 
         on: function() {
             this.ee.on.apply(this.ee, arguments);
+            return this;
         },
 
         off: function() {
             this.ee.off.apply(this.ee, arguments);
+            return this;
         },
 
         getItems: function() {
@@ -577,8 +580,10 @@
                 item.style.height = h + 'px';
             });
             this.ee.fireEvent('resize', w, h);
+            return this;
         },
 
+        // private
         onResize: function(e) {
             var w = window.innerWidth;
             var h = window.innerHeight;
@@ -589,6 +594,7 @@
             }
         },
 
+        // private
         onOrientationChange: function(e) {
             var lockScreen = this.options.lockScreen;
             if (lockScreen != 'off') {
@@ -607,6 +613,7 @@
             }
         },
 
+        // private
         getLockRotateEl: function() {
             if (!this.lockRotateEl) {
                 var rotateBody = this.options.rotateBody;
@@ -623,10 +630,12 @@
             return this.lockRotateEl;
         },
 
+        // private
         getAnimation: function() {
             return TouchBox.animations[this.options.animation];
         },
 
+        // private
         setItemShow: function(type, index, y, context) {
             if (index > -1) {
                 var el = this.getItem(index);
@@ -638,6 +647,7 @@
             }
         },
 
+        // private
         setItemHide: function(index, y) {
             if (index > -1) {
                 var el = this.getItem(index);
@@ -647,6 +657,7 @@
             }
         },
 
+        // private
         onTouchStart: function(e) {
             var me = this;
             if (me.sliding) {
@@ -687,6 +698,7 @@
             me.touchCoords.timeStamp = e.timeStamp;
         },
 
+        // private
         onTouchMove: function(e) {
             var me = this;
             if (!me.touchCoords || me.sliding) {
@@ -753,6 +765,7 @@
             }
         },
 
+        // private
         onTouchEnd: function(e) {
             var me = this;
             me.ct.removeEventListener(TOUCH_EVENTS.move, me, false);
@@ -774,9 +787,9 @@
 
             // 在touchend时应当将前、后视图隐藏，否则可能导致一些未知的布局错误
             if (isNaN(absY) || absY === 0 || me.ee.fireEvent('touchend', me.active, offsetY) === false) {
-                me.setItemHide(context.prev, -height);
-                me.setItemHide(context.next, height);
-                me.to(me.active, true, true);
+                // me.setItemHide(context.prev, -height);
+                // me.setItemHide(context.next, height);
+                // me.to(me.active, true, true);
             } else if (!isNaN(absY) && absY > 0) {
                 if (absY > height) {
                     absY = height;
@@ -845,8 +858,11 @@
                 toIndex = active;
                 slideFn(isSlideDown);
             }
+
+            return me;
         },
 
+        // private
         slide: function(fromIndex, toIndex, isSlideDown, silent) {
             var me = this,
                 offsetHeight = me.ct.offsetHeight,
@@ -876,6 +892,7 @@
                 me.resetSlideTimeout = null;
                 clearHandler(toEl, toSlideHandler);
                 toEl.style.position = 'relative';
+                fromEl && (fromEl.style.zIndex = '11');
                 toEl.style.zIndex = '12';
                 toEl.style[vendor.transitionDuration] = oms;
                 me.lastActive = me.active;
@@ -896,6 +913,22 @@
                     }
                 }, 100);
             };
+
+            // 将预准备的视图移出可视区域外，以免影响正常视图的展示
+            var context = me.getContext();
+            if (me.active == toIndex) {
+                if (isSlideDown) {
+                    me.setItemHide(context.prev, -offsetHeight);
+                } else {
+                    me.setItemHide(context.next, offsetHeight);
+                }
+            } else {
+                if (isSlideDown) {
+                    me.setItemHide(context.next, offsetHeight);
+                } else {
+                    me.setItemHide(context.prev, -offsetHeight);
+                }
+            }
 
             if (fromIndex > -1) {
                 fromEl = me.getItem(fromIndex);
@@ -932,27 +965,26 @@
                         toSlideHandler();
                     }, duration + 400);
                 }
-            }, os.android ? 50 : 10);
+            }, os.android ? 50 : 10); // 加个延迟时间，等待修改的DOM属性生效
         },
 
         prev: function() {
             var context = this.getContext();
             if (context.prev > -1) {
                 this.to(context.prev);
-                return true;
             }
-            return false;
+            return this;
         },
 
         next: function() {
             var context = this.getContext();
             if (context.next > -1) {
                 this.to(context.next);
-                return true;
             }
-            return false;
+            return this;
         },
 
+        // private
         handleEvent: function(e) {
             switch (e.type) {
                 case TOUCH_EVENTS.start:
